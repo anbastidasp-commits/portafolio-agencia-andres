@@ -4,7 +4,6 @@ import {
   motion,
   useScroll,
   useTransform,
-  useMotionTemplate,
   useReducedMotion,
 } from 'framer-motion'
 import { ChevronDown, Instagram, Linkedin, Github, Dribbble, ArrowUpRight } from 'lucide-react'
@@ -48,10 +47,10 @@ export default function Hero() {
   })
 
   // El titular se comprime y sube; el fondo se mueve más lento (parallax de profundidad).
+  // Sólo y + scale (transform GPU). Se quitó el blur() animado por scroll:
+  // filtrar el titular gigante en cada frame provocaba repintados costosos = lag.
   const titleY = useTransform(scrollYProgress, [0, 1], ['0%', prefersReduced ? '0%' : '-22%'])
   const titleScale = useTransform(scrollYProgress, [0, 0.6], [1, prefersReduced ? 1 : 0.88])
-  const titleBlur = useTransform(scrollYProgress, [0, 0.5], [0, prefersReduced ? 0 : 4])
-  const titleFilter = useMotionTemplate`blur(${titleBlur}px)`
 
   // El statement/CTA desaparece antes que el titular.
   const subtitleY = useTransform(scrollYProgress, [0, 0.4], ['0%', prefersReduced ? '0%' : '-40%'])
@@ -118,7 +117,6 @@ export default function Hero() {
             style={{
               y: titleY,
               scale: titleScale,
-              filter: titleFilter,
             }}
           >
             <MaskLine delay={0.1}>{hero.titleSans}</MaskLine>

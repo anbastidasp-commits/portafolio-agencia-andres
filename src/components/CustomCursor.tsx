@@ -22,6 +22,10 @@ export default function CustomCursor() {
     const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
     const ring = { x: pos.x, y: pos.y }
     let frame = 0
+    // Estado previo en refs: sólo hacemos setState (re-render) cuando el valor
+    // cambia de verdad, no en cada mousemove (evita 60+ renders/seg = lag).
+    let prevArrow = false
+    let prevHover = false
 
     const onMove = (e: MouseEvent) => {
       pos.x = e.clientX
@@ -30,8 +34,16 @@ export default function CustomCursor() {
         dotRef.current.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`
       }
       const target = e.target as HTMLElement
-      setArrow(Boolean(target?.closest('[data-cursor-zone="arrow"]')))
-      setHovering(Boolean(target?.closest('a, button, [data-cursor]')))
+      const nextArrow = Boolean(target?.closest('[data-cursor-zone="arrow"]'))
+      const nextHover = Boolean(target?.closest('a, button, [data-cursor]'))
+      if (nextArrow !== prevArrow) {
+        prevArrow = nextArrow
+        setArrow(nextArrow)
+      }
+      if (nextHover !== prevHover) {
+        prevHover = nextHover
+        setHovering(nextHover)
+      }
     }
 
     const render = () => {
@@ -43,7 +55,7 @@ export default function CustomCursor() {
       frame = requestAnimationFrame(render)
     }
     frame = requestAnimationFrame(render)
-    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mousemove', onMove, { passive: true })
 
     return () => {
       cancelAnimationFrame(frame)

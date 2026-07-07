@@ -54,7 +54,7 @@ export default function HeroBackground() {
 
       {/* Capa CARMESÍ — metal líquido principal (definitiva) */}
       <LiquidMetal
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', filter: 'blur(9px)' }}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', filter: 'blur(5px)' }}
         colorBack="hsla(215, 41%, 10%, 0)"
         colorTint="hsl(6, 63%, 46%)"
         repetition={4}
@@ -78,7 +78,7 @@ export default function HeroBackground() {
           inset: 0,
           width: '100%',
           height: '100%',
-          filter: 'blur(18px)',
+          filter: 'blur(11px)',
           mixBlendMode: 'screen',
           opacity: 0.45,
         }}

@@ -105,7 +105,7 @@ function WorkCard({
       >
         <motion.article
           style={{ scale, opacity }}
-          className="glass-card relative mb-16 overflow-hidden rounded-[2rem] border border-cream/12 bg-steel-900/35 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.85)] ring-1 ring-inset ring-cream/10 backdrop-blur-2xl sm:mb-24"
+          className="glass-card relative mb-16 overflow-hidden rounded-[2rem] border border-cream/12 bg-steel-900/45 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.85)] ring-1 ring-inset ring-cream/10 backdrop-blur-lg sm:mb-24"
         >
           {/* Brillo de cristal (glassmorphism pro) */}
           <span

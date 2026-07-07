@@ -68,6 +68,11 @@ function MarqueeRow({
 }
 
 function ReviewCard({ card }: { card: Card }) {
+  // Slot vacío (aún sin clientes): misma tarjeta, con esqueletos en lugar de info.
+  const empty = !card.quote && !card.name
+
+  if (empty) return <PlaceholderCard />
+
   return (
     <figure className="mx-2.5 flex w-[320px] shrink-0 flex-col gap-5 rounded-3xl border border-steel-950/5 bg-steel-100 p-7 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.6)] sm:w-[400px]">
       <img
@@ -90,6 +95,40 @@ function ReviewCard({ card }: { card: Card }) {
           {card.company}
         </p>
       </figcaption>
+    </figure>
+  )
+}
+
+/**
+ * Tarjeta placeholder — misma estructura y dimensiones que una reseña real
+ * (avatar · estrellas · cita · autor) pero sin datos: barras/formas neutras.
+ * Se muestra mientras no haya testimonios reales en content.ts.
+ */
+function PlaceholderCard() {
+  return (
+    <figure
+      aria-hidden="true"
+      className="mx-2.5 flex w-[320px] shrink-0 flex-col gap-5 rounded-3xl border border-steel-950/5 bg-steel-100 p-7 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.6)] sm:w-[400px]"
+    >
+      {/* Avatar vacío */}
+      <div className="h-14 w-14 rounded-full bg-steel-950/[0.07] ring-1 ring-steel-950/10" />
+      {/* Estrellas apagadas (estructura conservada) */}
+      <div className="flex gap-1">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} className="h-4 w-4 text-steel-950/15" />
+        ))}
+      </div>
+      {/* Cita — barras de esqueleto */}
+      <div className="flex flex-col gap-2.5">
+        <span className="h-3.5 w-full rounded-full bg-steel-950/[0.07]" />
+        <span className="h-3.5 w-[92%] rounded-full bg-steel-950/[0.07]" />
+        <span className="h-3.5 w-[70%] rounded-full bg-steel-950/[0.07]" />
+      </div>
+      {/* Autor — nombre + empresa */}
+      <div className="mt-auto flex flex-col gap-2">
+        <span className="h-3.5 w-32 rounded-full bg-steel-950/10" />
+        <span className="h-2.5 w-20 rounded-full bg-steel-950/[0.07]" />
+      </div>
     </figure>
   )
 }

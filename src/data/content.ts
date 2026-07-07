@@ -286,45 +286,17 @@ export type Testimonial = {
   company: string
 }
 
-/** Testimonios placeholder — reemplaza por citas reales. El avatar se asigna por
- *  índice en Testimonials.tsx (src/assets/people). */
+/** Testimonios — VACÍOS a propósito (aún sin clientes). Se conserva la estructura
+ *  de la sección: cada entrada vacía renderiza una tarjeta placeholder (esqueleto)
+ *  en Testimonials.tsx. Al tener citas reales, rellena quote/name/company y las
+ *  tarjetas se muestran automáticamente con su contenido. */
 export const testimonials: Testimonial[] = [
-  {
-    quote:
-      'Entregó la landing en tiempo récord y la conversión subió desde la primera semana. Trato directo y cero vueltas.',
-    name: 'Marcos Rivera',
-    company: 'Altura Studio',
-  },
-  {
-    quote:
-      'Montó nuestro CRM justo a la medida del proceso de ventas. Por fin tenemos todo en un solo sitio.',
-    name: 'Lucía Fernández',
-    company: 'Nimbo CRM',
-  },
-  {
-    quote:
-      'Automatizó tareas que nos comían horas cada semana. Profesional, claro y muy comprometido.',
-    name: 'Diego Salazar',
-    company: 'Vela & Co.',
-  },
-  {
-    quote:
-      'El rediseño de la web nos hizo ver mucho más serios. Cuidó cada detalle como si fuera suyo.',
-    name: 'Camila Ortiz',
-    company: 'Lumen Labs',
-  },
-  {
-    quote:
-      'Pasamos de una idea suelta a una web en línea en tres semanas. Comunicación clara en todo momento.',
-    name: 'Andrés Peña',
-    company: 'Núcleo Ventas',
-  },
-  {
-    quote:
-      'Entendió el negocio antes de tocar el diseño. El resultado se siente hecho a medida, no de plantilla.',
-    name: 'Valentina Ruiz',
-    company: 'Origen Digital',
-  },
+  { quote: '', name: '', company: '' },
+  { quote: '', name: '', company: '' },
+  { quote: '', name: '', company: '' },
+  { quote: '', name: '', company: '' },
+  { quote: '', name: '', company: '' },
+  { quote: '', name: '', company: '' },
 ]
 
 export type Faq = { q: string; a: string }
