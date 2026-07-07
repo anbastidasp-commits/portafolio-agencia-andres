@@ -1,0 +1,349 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Lenis toma el control del scroll cuando JS está activo */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-steel-950 text-steel-100 font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #c0392b;
+    color: #f5f2eb;
+  }
+
+  /* Scrollbar a tono con la paleta definitiva */
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f1722;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2c3a56;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #457b9d;
+  }
+}
+
+@layer components {
+  /* Palabra de acento: serif italica (patrón firma del título) */
+  .serif-accent {
+    @apply font-serif italic;
+    font-weight: 400;
+  }
+
+  /* Wordmark gigante: crema → carmesí → carmesí oscuro (definitiva) */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(180deg, #f5f2eb 0%, #c0392b 55%, #8f2a20 100%);
+  }
+
+  /* Borde sutil 1px estilo template */
+  .hairline {
+    border: 1px solid rgba(245, 242, 235, 0.1);
+  }
+
+  .glass {
+    background: rgba(27, 38, 59, 0.62);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* Pill translúcida (eyebrow de sección / tags) */
+  .pill {
+    background: rgba(245, 242, 235, 0.06);
+    border: 1px solid rgba(245, 242, 235, 0.12);
+  }
+
+  /* Etiqueta de sección estilo "OUR SERVICES" — pill con punto */
+  .section-label {
+    @apply inline-flex items-center gap-2.5 rounded-full px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.18em];
+  }
+  .section-label__dot {
+    @apply h-1.5 w-1.5 shrink-0 rounded-full;
+    /* Acento carmesí (definitiva) en cada eyebrow de sección */
+    background-color: #c0392b;
+    box-shadow: 0 0 10px rgba(192, 57, 43, 0.6);
+  }
+
+  /* Patrón de puntos sutil para fondos (proceso, testimonios, contacto) */
+  .dot-grid {
+    background-image: radial-gradient(rgba(69, 123, 157, 0.16) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Legibilidad del texto del hero SOBRE el vídeo, sin un scrim plano
+     (la indicación es "no overlay"): sombra suave en vez de capa que apaga. */
+  .hero-shadow {
+    text-shadow:
+      0 2px 30px rgba(15, 23, 34, 0.6),
+      0 1px 3px rgba(15, 23, 34, 0.5);
+  }
+
+  /* Título gigante con barrido de brillo crema→carmesí (definitiva). */
+  .text-sheen {
+    background-image: linear-gradient(
+      100deg,
+      #f5f2eb 0%,
+      #ffffff 18%,
+      #f5f2eb 34%,
+      #f5f2eb 50%,
+      #e07a6c 66%,
+      #f5f2eb 82%,
+      #ffffff 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* HERO — fondo de vídeo + atmósfera de color adaptada a la paleta    */
+/* ------------------------------------------------------------------ */
+
+/* Atmósfera tipo "aurora": deriva lenta de glows vino/slate/crema.
+   mix-blend soft-light GRADÚA el vídeo hacia la paleta sin oscurecerlo
+   (cumple "no overlay" — no es un scrim plano, es color que tiñe). */
+.hero-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(58% 50% at 16% 28%, rgba(192, 57, 43, 0.45), transparent 70%),
+    radial-gradient(52% 46% at 84% 22%, rgba(69, 123, 157, 0.36), transparent 72%),
+    radial-gradient(60% 55% at 72% 88%, rgba(245, 242, 235, 0.16), transparent 70%);
+  mix-blend-mode: soft-light;
+  will-change: transform, opacity;
+  animation: aurora-drift 22s ease-in-out infinite alternate;
+}
+
+/* Tinte centrado: recolorea el ORBE del vídeo hacia la paleta
+   (vino → crema → slate) con mix-blend "color": conserva la luz del
+   orbe pero adopta el tono cálido del portafolio. */
+.hero-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 40% at 50% 45%, rgba(192, 57, 43, 0.55), rgba(245, 242, 235, 0.28) 46%, transparent 72%),
+    radial-gradient(62% 62% at 50% 50%, rgba(69, 123, 157, 0.22), transparent 70%);
+  mix-blend-mode: color;
+  will-change: transform, opacity;
+  animation: aurora-drift 28s ease-in-out infinite alternate-reverse;
+}
+
+/* Suaviza/calienta el vídeo: ligero realce de saturación y contraste. */
+.hero-video {
+  filter: saturate(1.1) contrast(1.03) brightness(1.01);
+}
+
+/* Graduado mínimo SÓLO en el borde inferior para legibilidad de la
+   fila inferior del hero. Tinte de la paleta (steel-950), no negro. */
+.hero-grade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(15, 23, 34, 0.85) 0%,
+    rgba(15, 23, 34, 0.3) 20%,
+    transparent 42%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora,
+  .hero-tint,
+  .text-sheen {
+    animation: none !important;
+  }
+}
+
+/* Spinner de carga para la escena 3D (Spline) mientras descarga */
+.loader {
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  border: 3px solid rgba(143, 169, 190, 0.25); /* steel-300 tenue */
+  border-top-color: #c0392b; /* carmesí */
+  animation: spin 0.85s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Overlay de grano (textura fílmica, estilo Awwwards) */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Cursor personalizado: ocultamos el nativo en dispositivos con puntero fino */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a,
+  button,
+  [data-cursor] {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .grain {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* MENÚ CINÉTICO a pantalla completa (GSAP) — botón Menu/Close         */
+/* ------------------------------------------------------------------ */
+.kmenu-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: none;
+}
+.kmenu-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 34, 0.5);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+.kmenu-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  will-change: transform;
+}
+@media (min-width: 768px) {
+  .kmenu-panel {
+    width: min(580px, 100%);
+  }
+}
+
+/* Capas de fondo que entran escalonadas desde la derecha */
+.kmenu-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.kmenu-layer.l1 {
+  background: #1b263b; /* Azul Marino */
+}
+.kmenu-layer.l2 {
+  /* tinte carmesí entre las capas marinas */
+  background: linear-gradient(160deg, #3a1411 0%, #1b263b 100%);
+}
+.kmenu-layer.l3 {
+  background: #0f1722;
+}
+/* Glow carmesí/crema que respira detrás del menú */
+.kmenu-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 40% at 80% 12%, rgba(192, 57, 43, 0.5), transparent 70%),
+    radial-gradient(50% 40% at 12% 88%, rgba(245, 242, 235, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+/* Formas abstractas que reaccionan al hover de cada link */
+.kmenu-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.kmenu-shape {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 78%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.kmenu-shape.active {
+  opacity: 1;
+}
+
+/* Máscaras de los links (reveal vertical) */
+.kmenu-link-mask {
+  display: block;
+  overflow: hidden;
+}
+.kmenu-link-inner {
+  display: block;
+  will-change: transform;
+}
+
+/* Botón Menu/Close — swap de texto + icono que rota */
+.kmenu-btn-text {
+  position: relative;
+  height: 1.05em;
+  overflow: hidden;
+}
+.kmenu-btn-text p {
+  margin: 0;
+  line-height: 1.05;
+  will-change: transform;
+}
+.kmenu-btn-icon {
+  will-change: transform;
+}
