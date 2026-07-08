@@ -99,6 +99,8 @@ export type Project = {
   art: string
   /** URL local para abrir la landing e interactuar (nueva pestaña). */
   localUrl: string
+  /** Demo pública desplegada en Vercel. */
+  demoUrl: string
   /** Pista de ruta/arranque para el usuario. */
   pathHint: string
 }
@@ -113,6 +115,7 @@ export const projects: Project[] = [
     badge: { label: 'Destacado', type: 'Awwwards style', date: '2025' },
     art: 'linear-gradient(135deg,#8C2F39,#1a1208)',
     localUrl: 'http://localhost:3000',
+    demoUrl: 'https://demo-don-pietro.vercel.app',
     pathHint: 'E:\\CLAUDE\\don-pietro-pizzeria · Iniciar-dev.bat',
   },
   {
@@ -123,6 +126,7 @@ export const projects: Project[] = [
     badge: { label: 'Caso', type: 'Landing Page', date: '2025' },
     art: 'linear-gradient(135deg,#1f3a36,#0d1f1c)',
     localUrl: 'http://localhost:3001',
+    demoUrl: 'https://caf-coqui.vercel.app',
     pathHint: 'E:\\CLAUDE\\coqui-cafe · Iniciar-dev.bat',
   },
   {
@@ -133,6 +137,7 @@ export const projects: Project[] = [
     badge: { label: 'Caso', type: 'Landing Page', date: '2025' },
     art: 'linear-gradient(135deg,#243b40,#3a1d10)',
     localUrl: 'http://localhost:3000',
+    demoUrl: 'https://demo-fontana.vercel.app',
     pathHint: 'E:\\CLAUDE\\fontana-lounge · Iniciar-dev.bat',
   },
   {
@@ -143,6 +148,7 @@ export const projects: Project[] = [
     badge: { label: 'Caso', type: 'Multipágina', date: '2024' },
     art: 'linear-gradient(135deg,#5b3a1e,#1c130b)',
     localUrl: 'file:///E:/CLAUDE/cafe-colonial%20-%20copia/index.html',
+    demoUrl: 'https://demo-cafe-colonial.vercel.app',
     pathHint: 'E:\\CLAUDE\\cafe-colonial - copia · index.html',
   },
 ]

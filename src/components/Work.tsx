@@ -200,6 +200,16 @@ function WorkCard({
               <h3 className="mt-2 font-display text-4xl font-semibold tracking-tight text-steel-100 sm:text-5xl">
                 {project.title}
               </h3>
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor
+                className="group/demo mt-3 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.15em] text-wine-300 transition-colors hover:text-cream"
+              >
+                {project.demoUrl.replace('https://', '')}
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-out-expo group-hover/demo:translate-x-0.5 group-hover/demo:-translate-y-0.5" />
+              </a>
             </div>
             <button
               type="button"

@@ -91,17 +91,17 @@ export default function PreviewModal({
 
               <div>
                 <a
-                  href={project.localUrl}
+                  href={project.demoUrl}
                   target="_blank"
                   rel="noreferrer"
                   data-cursor
                   className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-wine px-6 py-4 text-sm font-semibold text-cream transition-colors duration-300 hover:bg-wine-500"
                 >
-                  Abrir para interactuar
+                  Abrir demo en vivo
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <p className="mt-3 font-mono text-[0.7rem] leading-relaxed text-steel-500">
-                  Local: {project.pathHint}
+                  {project.demoUrl.replace('https://', '')}
                 </p>
               </div>
             </div>
