@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { about } from '../data/content'
 import { useReveal } from '../hooks/useReveal'
-import Counter from './Counter'
 import photoMain from '../assets/about/andres-1.webp'
 import photoHover from '../assets/about/andres-2.webp'
 
@@ -104,22 +103,6 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Contadores — métricas bajo el bloque foto + bio */}
-        <div className="mt-20 grid grid-cols-1 gap-12 border-t border-steel-700 pt-14 sm:grid-cols-3">
-          {about.metrics.map((m) => (
-            <div key={m.label}>
-              <div
-                className="font-display font-semibold leading-none tracking-tightest text-steel-100"
-                style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}
-              >
-                <Counter to={m.value} suffix={m.suffix} />
-              </div>
-              <p className="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-steel-500">
-                {m.label}
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   )

@@ -168,12 +168,6 @@ export const about = {
   /** Párrafo con highlight progresivo (legado — ya no se usa en la nueva sección). */
   paragraph:
     'Ayudo a fundadores y equipos pequeños a lanzar productos digitales que destacan y escalan. Un solo aliado, foco total y compromiso de principio a fin — desde la primera llamada hasta el lanzamiento, y después.',
-  /** Contadores (count-up). Ajusta a tus números reales. */
-  metrics: [
-    { value: 40, suffix: '+', label: 'Proyectos entregados' },
-    { value: 4, suffix: '+', label: 'Años de experiencia' },
-    { value: 20, suffix: '+', label: 'Clientes felices' },
-  ],
 }
 
 export type Step = {
