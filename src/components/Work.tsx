@@ -4,6 +4,7 @@ import { ArrowUpRight, Award } from 'lucide-react'
 import { projects, type Project } from '../data/content'
 import Reveal from './Reveal'
 import SectionLabel from './SectionLabel'
+import TextAppear from './TextAppear'
 import MagneticButton from './MagneticButton'
 import ProjectCard3D from './ProjectCard3D'
 import PreviewModal from './PreviewModal'
@@ -36,14 +37,13 @@ export default function Work() {
             <Reveal>
               <SectionLabel>Proyectos</SectionLabel>
             </Reveal>
-            <Reveal delay={0.05}>
-              <h2
-                className="mt-6 font-display font-bold leading-[0.95] tracking-tightest text-steel-100"
-                style={{ fontSize: 'clamp(44px, 5.6vw, 92px)' }}
-              >
-                Trabajo <span className="serif-accent text-cream">seleccionado</span>
-              </h2>
-            </Reveal>
+            <h2
+              className="mt-6 font-display font-bold leading-[0.95] tracking-tightest text-steel-100"
+              style={{ fontSize: 'clamp(44px, 5.6vw, 92px)' }}
+            >
+              <TextAppear text="Trabajo" delay={0.05} />{' '}
+              <TextAppear text="seleccionado" delay={0.15} className="serif-accent text-cream" />
+            </h2>
           </div>
           <Reveal delay={0.1} className="lg:col-span-5">
             <p className="text-xl leading-relaxed text-steel-300 sm:text-2xl">

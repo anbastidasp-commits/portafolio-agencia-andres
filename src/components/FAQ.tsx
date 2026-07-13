@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react'
 import { faqs, brand } from '../data/content'
 import Reveal from './Reveal'
 import SectionLabel from './SectionLabel'
+import TextAppear from './TextAppear'
 import { EASE, DUR } from '../lib/easings'
 import faqImg from '../assets/work/faq.jpg'
 
@@ -19,20 +20,21 @@ export default function FAQ() {
             <Reveal>
               <SectionLabel>FAQ</SectionLabel>
             </Reveal>
-            <Reveal delay={0.05}>
-              <h2
-                className="mt-6 font-display font-bold leading-[0.95] tracking-tightest text-steel-100"
-                style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}
-              >
-                ¿Tienes <span className="serif-accent text-wine-300">dudas?</span>
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mt-6 max-w-md text-xl leading-relaxed text-steel-300 sm:text-2xl">
-                Esto es lo que suelen preguntarme antes de empezar. Si te queda cualquier otra
-                duda, escríbeme directo y lo vemos.
-              </p>
-            </Reveal>
+            <h2
+              className="mt-6 font-display font-bold leading-[0.95] tracking-tightest text-steel-100"
+              style={{ fontSize: 'clamp(40px, 5vw, 80px)' }}
+            >
+              <TextAppear text="¿Tienes" delay={0.05} />{' '}
+              <TextAppear text="dudas?" delay={0.15} className="serif-accent text-wine-300" />
+            </h2>
+            <p className="mt-6 max-w-md text-xl leading-relaxed text-steel-300 sm:text-2xl">
+              <TextAppear
+                text="Esto es lo que suelen preguntarme antes de empezar. Si te queda cualquier otra duda, escríbeme directo y lo vemos."
+                mode="fade"
+                delay={0.1}
+                stagger={0.012}
+              />
+            </p>
 
             <Reveal delay={0.15}>
               <figure className="group relative mt-10 overflow-hidden rounded-2xl ring-1 ring-inset ring-cream/10">
@@ -44,7 +46,7 @@ export default function FAQ() {
                 />
                 {/* Tinte de paleta (marino + carmesí) para cohesión cromática */}
                 <div className="absolute inset-0 bg-gradient-to-t from-steel-950 via-steel-950/30 to-steel-950/20" />
-                <div className="absolute inset-0 bg-[#13202c] mix-blend-multiply opacity-40" />
+                <div className="absolute inset-0 bg-[#1a1310] mix-blend-multiply opacity-40" />
                 {/* Corchetes de encuadre */}
                 <span className="absolute left-3 top-3 h-5 w-5 border-l border-t border-cream/70" />
                 <span className="absolute right-3 top-3 h-5 w-5 border-r border-t border-cream/70" />

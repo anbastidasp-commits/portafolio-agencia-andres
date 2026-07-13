@@ -1,6 +1,7 @@
 import { process } from '../data/content'
 import Reveal from './Reveal'
 import SectionLabel from './SectionLabel'
+import TextAppear from './TextAppear'
 import procStudio from '../assets/process/proc-studio.jpg'
 import procDark from '../assets/process/proc-dark.jpg'
 import procArch from '../assets/process/proc-arch.jpg'
@@ -27,19 +28,19 @@ export default function Process() {
             <Reveal>
               <SectionLabel>Proceso</SectionLabel>
             </Reveal>
-            <Reveal delay={0.05}>
-              <h2
-                className="mt-6 font-display font-bold leading-[0.95] tracking-tightest text-steel-100"
-                style={{ fontSize: 'clamp(40px, 5.2vw, 84px)' }}
-              >
-                De la idea al lanzamiento,{' '}
-                <span className="serif-accent text-wine-300">sin caos</span>
-              </h2>
-            </Reveal>
+            <h2
+              className="mt-6 font-display font-bold leading-[0.95] tracking-tightest text-steel-100"
+              style={{ fontSize: 'clamp(40px, 5.2vw, 84px)' }}
+            >
+              <TextAppear text="De la idea al lanzamiento," delay={0.05} />{' '}
+              <TextAppear text="sin caos" delay={0.28} className="serif-accent text-wine-300" />
+            </h2>
           </div>
-          <Reveal delay={0.1} className="lg:col-span-4">
-            <p className="text-xl leading-relaxed text-steel-300 sm:text-2xl">{process.intro}</p>
-          </Reveal>
+          <div className="lg:col-span-4">
+            <p className="text-xl leading-relaxed text-steel-300 sm:text-2xl">
+              <TextAppear text={process.intro} mode="fade" delay={0.1} stagger={0.015} />
+            </p>
+          </div>
         </div>
 
         {/* ── Bento editorial ─────────────────────────────────────────── */}

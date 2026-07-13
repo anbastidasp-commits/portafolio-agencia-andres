@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { highlights, highlightsIntro } from '../data/content'
 import Reveal from './Reveal'
 import SectionLabel from './SectionLabel'
+import TextAppear from './TextAppear'
 import why1 from '../assets/highlights/why-1.webp'
 import why2 from '../assets/highlights/why-2.webp'
 import why3 from '../assets/highlights/why-3.webp'
@@ -27,8 +28,8 @@ export default function Highlights() {
         viewBox="0 0 1200 1600"
         fill="none"
       >
-        <path d="M-50 380 C 300 260, 360 560, 620 520 S 980 300, 1260 460" stroke="#8FA9BE" strokeWidth="1.2" />
-        <path d="M-40 900 C 280 760, 420 1080, 680 1000 S 1020 760, 1260 960" stroke="#8FA9BE" strokeWidth="1.2" />
+        <path d="M-50 380 C 300 260, 360 560, 620 520 S 980 300, 1260 460" stroke="#C9BEB0" strokeWidth="1.2" />
+        <path d="M-40 900 C 280 760, 420 1080, 680 1000 S 1020 760, 1260 960" stroke="#C9BEB0" strokeWidth="1.2" />
       </svg>
 
       {/* ── Intro a (casi) pantalla completa ── */}
@@ -36,20 +37,20 @@ export default function Highlights() {
         <Reveal>
           <SectionLabel>Por qué yo</SectionLabel>
         </Reveal>
-        <Reveal delay={0.05}>
-          <h2
-            className="mt-8 font-display font-bold leading-[0.9] tracking-tightest text-steel-100"
-            style={{ fontSize: 'clamp(72px, 13vw, 220px)' }}
-          >
-            {highlightsIntro.title}{' '}
-            <span className="serif-accent font-bold text-wine-300">{highlightsIntro.titleItalic}</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mt-8 max-w-2xl text-xl leading-relaxed text-steel-300 sm:text-2xl">
-            {highlightsIntro.description}
-          </p>
-        </Reveal>
+        <h2
+          className="mt-8 font-display font-bold leading-[0.9] tracking-tightest text-steel-100"
+          style={{ fontSize: 'clamp(72px, 13vw, 220px)' }}
+        >
+          <TextAppear text={highlightsIntro.title} delay={0.05} />{' '}
+          <TextAppear
+            text={highlightsIntro.titleItalic}
+            delay={0.2}
+            className="serif-accent font-bold text-wine-300"
+          />
+        </h2>
+        <p className="mt-8 max-w-2xl text-xl leading-relaxed text-steel-300 sm:text-2xl">
+          <TextAppear text={highlightsIntro.description} mode="fade" delay={0.1} stagger={0.012} />
+        </p>
       </div>
 
       {/* ── Filas imagen/texto alternadas ── */}
@@ -87,10 +88,10 @@ export default function Highlights() {
                       className="serif-accent mt-5 leading-[0.95] text-steel-100"
                       style={{ fontSize: 'clamp(40px, 5.5vw, 80px)' }}
                     >
-                      {h.title}
+                      <TextAppear text={h.title} />
                     </h3>
                     <p className="mt-6 max-w-md text-xl leading-relaxed text-steel-300 sm:text-2xl">
-                      {h.description}
+                      <TextAppear text={h.description} mode="fade" delay={0.12} stagger={0.012} />
                     </p>
                     <a
                       href="#contacto"

@@ -28,16 +28,18 @@ export default function ScrollCurtain({
   })
 
   // Mientras el bloque sube hacia su posición, el arco inferior es grande;
-  // al asentarse se aplana a 0.
+  // al asentarse se aplana a 0. clip-path en vez de border-radius+overflow:
+  // el recorte se resuelve en composición (GPU) y no repinta la sección
+  // completa en cada frame de scroll.
   const arc = useTransform(scrollYProgress, [0, 0.85], [64, 0])
   const scale = useTransform(scrollYProgress, [0, 0.85], [0.975, 1])
-  const radius = useMotionTemplate`0px 0px 50% 50% / 0px 0px ${arc}px ${arc}px`
+  const clip = useMotionTemplate`inset(0px 0px 0px 0px round 0px 0px ${arc}px ${arc}px)`
 
   return (
     <motion.div
       ref={ref}
-      style={{ borderRadius: radius, scale, background }}
-      className={`relative overflow-hidden will-change-transform ${className}`}
+      style={{ clipPath: clip, scale, background }}
+      className={`relative will-change-transform ${className}`}
     >
       {children}
     </motion.div>

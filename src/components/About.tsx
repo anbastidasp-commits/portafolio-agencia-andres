@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { about } from '../data/content'
+import TextAppear from './TextAppear'
 import { useReveal } from '../hooks/useReveal'
 import photoMain from '../assets/about/andres-1.webp'
 import photoHover from '../assets/about/andres-2.webp'
@@ -66,11 +67,15 @@ export default function About() {
             {/* Bio principal */}
             <div className="flex flex-col gap-5">
               <p className="font-display text-[clamp(24px,3vw,40px)] font-semibold leading-[1.15] tracking-tight text-steel-100">
-                {about.headline}
+                <TextAppear text={about.headline} />
                 <br />
-                <span className="serif-accent italic text-wine-300">{about.headlineAccent}</span>
+                <span className="serif-accent italic text-wine-300">
+                  <TextAppear text={about.headlineAccent} delay={0.15} />
+                </span>
               </p>
-              <p className="text-xl leading-relaxed text-steel-300">{about.bioPrimary}</p>
+              <p className="text-xl leading-relaxed text-steel-300">
+                <TextAppear text={about.bioPrimary} mode="fade" delay={0.1} stagger={0.012} />
+              </p>
               <p className="text-lg leading-relaxed text-steel-500">{about.bioSecondary}</p>
             </div>
 

@@ -12,7 +12,7 @@ const socials = [
 
 const W = ['#C0392B', '#D24E3E', '#E07A6C'] // carmesí (definitiva)
 const C = '#F5F2EB' // crema
-const S = '#457B9D' // azul acero
+const S = '#D24E3E' // carmesí claro
 
 /** Formas abstractas cálidas que reaccionan al hover de cada link del menú. */
 function MenuShapes() {

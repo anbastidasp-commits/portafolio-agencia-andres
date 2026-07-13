@@ -1,8 +1,9 @@
-import type { SVGProps } from 'react'
-import { motion } from 'framer-motion'
+import { useRef, type SVGProps } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { Mail, Twitter, Linkedin, Instagram } from 'lucide-react'
 import { contact, brand } from '../data/content'
 import { SplineScene } from './ui/splite'
+import TextAppear from './TextAppear'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -34,23 +35,29 @@ export default function Contact() {
     contact.whatsapp.message,
   )}`
 
+  // El runtime de Spline (~2 MB) sólo se descarga y monta cuando la sección
+  // está a menos de una pantalla de distancia — no penaliza la carga inicial.
+  const sectionRef = useRef<HTMLElement>(null)
+  const nearViewport = useInView(sectionRef, { once: true, margin: '100% 0px' })
+
   return (
     <section
+      ref={sectionRef}
       id="contacto"
-      className="relative flex min-h-screen flex-col overflow-hidden border-t border-steel-700 bg-[#0a111c]"
+      className="relative flex min-h-screen flex-col overflow-hidden border-t border-steel-700 bg-[#0d0a09]"
     >
       {/* ── Rayos de luz (god rays) desde arriba-izquierda, en tonos de paleta
-            (crema + carmesí) sobre marino profundo → cierre que resalta pero
+            (crema + carmesí) sobre negro profundo → cierre que resalta pero
             coherente con el resto del portafolio. ── */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-[12%] -top-[25%] h-[170%] w-[52%] rotate-[18deg] bg-[linear-gradient(90deg,rgba(245,242,235,0.09),transparent_60%)] blur-2xl" />
         <div className="absolute left-0 -top-[30%] h-[180%] w-[38%] rotate-[24deg] bg-[linear-gradient(90deg,rgba(224,122,108,0.06),transparent_55%)] blur-3xl" />
         <div className="absolute -left-[6%] -top-[35%] h-[185%] w-[28%] rotate-[11deg] bg-[linear-gradient(90deg,rgba(245,242,235,0.05),transparent_50%)] blur-2xl" />
-        {/* Glow carmesí (arriba-izq) + acero (der) para teñir hacia la paleta */}
+        {/* Glow carmesí (arriba-izq) + carmesí (der) para teñir hacia la paleta */}
         <div className="absolute -left-40 -top-40 h-[62vh] w-[62vh] rounded-full bg-[radial-gradient(circle,rgba(192,57,43,0.12),transparent_70%)] blur-[120px]" />
-        <div className="absolute right-[-10%] top-1/4 h-[55vh] w-[45vh] rounded-full bg-[radial-gradient(circle,rgba(69,123,157,0.10),transparent_70%)] blur-[130px]" />
+        <div className="absolute right-[-10%] top-1/4 h-[55vh] w-[45vh] rounded-full bg-[radial-gradient(circle,rgba(192,57,43,0.10),transparent_70%)] blur-[130px]" />
         {/* Viñeta inferior para profundidad */}
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#070d16] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#060404] to-transparent" />
       </div>
 
       {/* ── Robot 3D (Spline) DETRÁS del headline: capa entre el fondo y el
@@ -58,10 +65,12 @@ export default function Contact() {
             pointer-events-none salvo el botón de WhatsApp, así el mouse llega
             al robot pero los clicks siguen funcionando. ── */}
       <div aria-hidden="true" className="absolute inset-0 z-[1] flex items-center justify-center">
-        <SplineScene
-          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-          className="h-full w-full"
-        />
+        {nearViewport && (
+          <SplineScene
+            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+            className="h-full w-full"
+          />
+        )}
       </div>
 
       {/* ── Centro: eyebrow + titular + subtítulo + WhatsApp (entran desde arriba) ── */}
@@ -76,20 +85,24 @@ export default function Contact() {
           {brand.availability}
         </motion.p>
 
-        <motion.h2
-          variants={fromTop}
+        <h2
           className="mt-6 font-display font-bold leading-[0.9] tracking-tightest"
           style={{ fontSize: 'clamp(60px, 11vw, 184px)' }}
         >
-          <span className="text-steel-100">Trabajemos</span>{' '}
-          <span className="text-wine-300">juntos</span>
-        </motion.h2>
+          <TextAppear text="Trabajemos" delay={0.1} className="text-steel-100" />{' '}
+          <TextAppear text="juntos" delay={0.3} className="text-wine-300" />
+        </h2>
 
         <motion.p
           variants={fromTop}
           className="mt-7 max-w-xl text-xl leading-relaxed text-steel-300 sm:text-2xl"
         >
-          Cuéntame qué necesitas. Estoy disponible para nuevos proyectos — o solo para conversar.
+          <TextAppear
+            text="Cuéntame qué necesitas. Estoy disponible para nuevos proyectos — o solo para conversar."
+            mode="fade"
+            delay={0.25}
+            stagger={0.015}
+          />
         </motion.p>
 
         <motion.div variants={fromTop} className="mt-10">

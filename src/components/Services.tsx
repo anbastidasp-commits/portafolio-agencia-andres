@@ -7,6 +7,7 @@ import procStudio from '../assets/process/proc-studio.jpg'
 import procArch from '../assets/process/proc-arch.jpg'
 import procDark from '../assets/process/proc-dark.jpg'
 import Reveal from './Reveal'
+import TextAppear from './TextAppear'
 import { useReveal } from '../hooks/useReveal'
 import { containerVariants, cardVariants } from '../lib/variants'
 import { EASE } from '../lib/easings'
@@ -42,20 +43,19 @@ export default function Services() {
               Lo que hago
             </span>
           </Reveal>
-          <Reveal delay={0.05}>
-            <h2
-              className="font-display font-semibold leading-[0.9] tracking-tightest text-steel-100"
-              style={{ fontSize: 'clamp(64px, 12vw, 200px)' }}
-            >
-              Servicios<span className="text-wine">.</span>
-              <sup className="ml-2 align-super font-display text-[0.22em] font-medium text-steel-500">
-                ({services.length})
-              </sup>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="max-w-2xl text-xl leading-relaxed text-steel-300 sm:text-2xl">{servicesIntro}</p>
-          </Reveal>
+          <h2
+            className="font-display font-semibold leading-[0.9] tracking-tightest text-steel-100"
+            style={{ fontSize: 'clamp(64px, 12vw, 200px)' }}
+          >
+            <TextAppear text="Servicios" delay={0.05} />
+            <span className="text-wine">.</span>
+            <sup className="ml-2 align-super font-display text-[0.22em] font-medium text-steel-500">
+              ({services.length})
+            </sup>
+          </h2>
+          <p className="max-w-2xl text-xl leading-relaxed text-steel-300 sm:text-2xl">
+            <TextAppear text={servicesIntro} mode="fade" delay={0.1} stagger={0.015} />
+          </p>
         </div>
 
         {/* Lista acordeón — stagger orquestado al entrar al viewport */}

@@ -4,16 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Paleta DEFINITIVA — base Azul Marino #1B263B, texto Crema #F5F2EB,
-        // detalles Azul Acero #457B9D. (El nombre "steel" se conserva para no
-        // tocar cada className; los valores son los nuevos.)
+        // Paleta DEFINITIVA — negros cálidos + rojo carmesí + crema + blanco.
+        // (El nombre "steel" se conserva para no tocar cada className; los
+        // valores ahora son neutros cálidos, no azules.)
         steel: {
-          950: '#0F1722', // base background (marino profundo)
-          900: '#1B263B', // Azul Marino — estructura / paneles / secciones
-          800: '#22304A', // cards / superficies elevadas
-          700: '#2C3A56', // bordes 1px / stroke
-          500: '#457B9D', // Azul Acero — detalles secundarios / muted
-          300: '#8FA9BE', // texto secundario / labels (acero claro)
+          950: '#0B0908', // base background (negro cálido profundo)
+          900: '#161110', // estructura / paneles / secciones
+          800: '#211A17', // cards / superficies elevadas
+          700: '#2F2723', // bordes 1px / stroke
+          500: '#8C7C6F', // detalles secundarios / muted (topo cálido)
+          400: '#A99B8C', // texto terciario
+          300: '#C9BEB0', // texto secundario / labels (crema apagado)
           100: '#F5F2EB', // Crema Suave — texto / foreground
         },
         // Rojo Carmesí #C0392B — color de elementos importantes (definitiva).
@@ -30,7 +31,7 @@ export default {
           DEFAULT: '#F5F2EB', // Crema Suave (definitiva)
           dark: '#DAD5C7',
         },
-        slate: '#457B9D', // Azul Acero (definitiva)
+        slate: '#B0454F', // rojo vino apagado (antes azul acero)
 
         // Alias semánticos
         light: '#F5F2EB',

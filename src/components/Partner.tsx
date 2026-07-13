@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion
 import { partner } from '../data/content'
 import Reveal from './Reveal'
 import SectionLabel from './SectionLabel'
+import TextAppear from './TextAppear'
 import roleEstrategia from '../assets/work/role-estrategia.jpg'
 import roleDiseno from '../assets/work/role-diseno.jpg'
 import roleDesarrollo from '../assets/work/role-desarrollo.jpg'
@@ -29,8 +30,8 @@ export default function Partner() {
           alt=""
           className="h-full w-full object-cover opacity-[0.18] grayscale"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#141d2c] via-[#141d2c]/88 to-[#141d2c]" />
-        <div className="absolute inset-0 bg-[#16202e] mix-blend-multiply opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#171210] via-[#171210]/88 to-[#171210]" />
+        <div className="absolute inset-0 bg-[#1b1512] mix-blend-multiply opacity-40" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
@@ -39,20 +40,20 @@ export default function Partner() {
           <Reveal className="flex justify-center">
             <SectionLabel>Con quién trabajas</SectionLabel>
           </Reveal>
-          <Reveal delay={0.05}>
-            <h2
-              className="mt-6 font-display font-bold leading-[0.98] tracking-tightest text-steel-100"
-              style={{ fontSize: 'clamp(40px, 5.4vw, 88px)' }}
-            >
-              {partner.title}{' '}
-              <span className="serif-accent font-bold text-wine-300">{partner.titleItalic}</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mx-auto mt-6 max-w-2xl text-xl leading-relaxed text-steel-300 sm:text-2xl">
-              {partner.description}
-            </p>
-          </Reveal>
+          <h2
+            className="mt-6 font-display font-bold leading-[0.98] tracking-tightest text-steel-100"
+            style={{ fontSize: 'clamp(40px, 5.4vw, 88px)' }}
+          >
+            <TextAppear text={partner.title} delay={0.05} />{' '}
+            <TextAppear
+              text={partner.titleItalic}
+              delay={0.2}
+              className="serif-accent font-bold text-wine-300"
+            />
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl text-xl leading-relaxed text-steel-300 sm:text-2xl">
+            <TextAppear text={partner.description} mode="fade" delay={0.1} stagger={0.012} />
+          </p>
         </div>
 
         {/* 4 tarjetas con imagen: hover realza + sube; parallax al scrollear */}
@@ -102,7 +103,7 @@ function RoleCard({
         className="absolute inset-x-0 -top-[12%] h-[124%] w-full object-cover grayscale transition-[transform,filter] duration-[1.1s] ease-out-expo will-change-transform group-hover:scale-110 group-hover:grayscale-0"
       />
       {/* Tinte de paleta + grade inferior para legibilidad */}
-      <div className="absolute inset-0 bg-[#13202c] mix-blend-multiply opacity-40 transition-opacity duration-500 group-hover:opacity-20" />
+      <div className="absolute inset-0 bg-[#1a1310] mix-blend-multiply opacity-40 transition-opacity duration-500 group-hover:opacity-20" />
       <div className="absolute inset-0 bg-gradient-to-t from-steel-950 via-steel-950/30 to-steel-950/10" />
 
       <div className="relative z-10 flex h-full flex-col justify-between p-6">

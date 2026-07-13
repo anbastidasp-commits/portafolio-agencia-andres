@@ -2,6 +2,7 @@ import { Star } from 'lucide-react'
 import { testimonials, type Testimonial } from '../data/content'
 import Reveal from './Reveal'
 import SectionLabel from './SectionLabel'
+import TextAppear from './TextAppear'
 import av11 from '../assets/people/av11.jpg'
 import av5 from '../assets/people/av5.jpg'
 import av14 from '../assets/people/av14.jpg'
@@ -27,14 +28,13 @@ export default function Testimonials() {
         <Reveal className="flex justify-center">
           <SectionLabel>Testimonios</SectionLabel>
         </Reveal>
-        <Reveal delay={0.05}>
-          <h2
-            className="mx-auto mt-6 max-w-3xl font-display font-bold leading-[0.98] tracking-tightest text-steel-100"
-            style={{ fontSize: 'clamp(36px, 4.8vw, 76px)' }}
-          >
-            Lo que dicen <span className="serif-accent text-wine-300">mis clientes</span>
-          </h2>
-        </Reveal>
+        <h2
+          className="mx-auto mt-6 max-w-3xl font-display font-bold leading-[0.98] tracking-tightest text-steel-100"
+          style={{ fontSize: 'clamp(36px, 4.8vw, 76px)' }}
+        >
+          <TextAppear text="Lo que dicen" delay={0.05} />{' '}
+          <TextAppear text="mis clientes" delay={0.2} className="serif-accent text-wine-300" />
+        </h2>
       </div>
 
       {/* Filas en marquesina con difuminado en los bordes */}

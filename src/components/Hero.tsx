@@ -228,10 +228,10 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Difuminado inferior: suaviza el corte hacia el marquee crema (paleta real #0F1722) */}
+      {/* Difuminado inferior: suaviza el corte hacia el marquee crema (paleta real #0B0908) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-32 bg-gradient-to-b from-transparent to-[#0F1722]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-32 bg-gradient-to-b from-transparent to-[#0B0908]"
       />
     </section>
   )

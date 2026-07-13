@@ -24,13 +24,13 @@ export default function App() {
       <CustomCursor />
       <div className="grain" aria-hidden="true" />
 
-      {/* Fondo base de la página: marino limpio y plano (sin blobs de color que
-          generaban "ruido"). Las secciones-cortina se elevan con un panel un
-          tono más claro; el acento (carmesí) vive en los componentes. */}
+      {/* Fondo base de la página: negro cálido limpio y plano. Las secciones-
+          cortina se elevan con un panel un tono más claro; el acento (carmesí)
+          vive en los componentes. */}
       <div
         aria-hidden="true"
         className="fixed inset-0 -z-10"
-        style={{ background: 'linear-gradient(180deg,#101826 0%,#0c1420 100%)' }}
+        style={{ background: 'linear-gradient(180deg,#100D0B 0%,#0B0908 100%)' }}
       />
 
       <Navbar />
@@ -38,27 +38,27 @@ export default function App() {
       <main>
         <Hero />
         <Marquee />
-        {/* Secciones-cortina = panel marino homogéneo (#141d2c) elevado sobre la
+        {/* Secciones-cortina = panel negro cálido homogéneo (#171210) elevado sobre la
             base. Sin tintes de color en el fondo → cero ruido; coherente y limpio. */}
-        <ScrollCurtain background="#141d2c">
+        <ScrollCurtain background="#171210">
           <Services />
         </ScrollCurtain>
-        <ScrollCurtain background="#141d2c">
+        <ScrollCurtain background="#171210">
           <About />
         </ScrollCurtain>
         <Work />
-        <ScrollCurtain background="#141d2c">
+        <ScrollCurtain background="#171210">
           <Process />
         </ScrollCurtain>
         {/* Highlights se excluye de la cortina: usa position:sticky (la cortina
             rompe sticky por su overflow-hidden + transform). */}
         <Highlights />
-        <ScrollCurtain background="#141d2c">
+        <ScrollCurtain background="#171210">
           <Partner />
         </ScrollCurtain>
         {/* Testimonials se excluye de la cortina: usa sticky (igual que Work) */}
         <Testimonials />
-        <ScrollCurtain background="#141d2c">
+        <ScrollCurtain background="#171210">
           <FAQ />
         </ScrollCurtain>
         {/* Contacto = pantalla de cierre a tela completa (incluye © + redes,
