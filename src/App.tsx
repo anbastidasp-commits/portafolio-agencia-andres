@@ -1,4 +1,5 @@
 import { useSmoothScroll } from './hooks/useSmoothScroll'
+import { LOW_POWER } from './lib/device'
 import Preloader from './components/Preloader'
 import CustomCursor from './components/CustomCursor'
 import Navbar from './components/Navbar'
@@ -22,7 +23,8 @@ export default function App() {
     <>
       <Preloader />
       <CustomCursor />
-      <div className="grain" aria-hidden="true" />
+      {/* Grano sólo en desktop: en móvil es una capa fixed extra sin valor */}
+      {!LOW_POWER && <div className="grain" aria-hidden="true" />}
 
       {/* Fondo base de la página: negro cálido limpio y plano. Las secciones-
           cortina se elevan con un panel un tono más claro; el acento (carmesí)

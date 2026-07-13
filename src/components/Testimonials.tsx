@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+import { useInView } from 'framer-motion'
 import { Star } from 'lucide-react'
 import { testimonials, type Testimonial } from '../data/content'
 import Reveal from './Reveal'
@@ -16,14 +18,17 @@ const avatars = [av11, av5, av14, av32, av47, av60]
 type Card = Testimonial & { avatar: string }
 const cards: Card[] = testimonials.map((t, i) => ({ ...t, avatar: avatars[i % avatars.length] }))
 
-/** Reseñas en marquesina deslizable infinita (dos filas en sentidos opuestos). */
+/** Reseñas en marquesina deslizable infinita (dos filas en sentidos opuestos).
+ *  Las animaciones se pausan cuando la sección no está en pantalla. */
 export default function Testimonials() {
   // La segunda fila usa el orden invertido para que no se vea idéntica a la primera.
   const rowA = cards
   const rowB = [...cards].reverse()
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { margin: '80px 0px' })
 
   return (
-    <section className="relative overflow-hidden border-t border-steel-700 py-24 sm:py-32">
+    <section ref={ref} className="relative overflow-hidden border-t border-steel-700 py-24 sm:py-32">
       <div className="mx-auto mb-14 max-w-7xl px-5 text-center sm:px-8">
         <Reveal className="flex justify-center">
           <SectionLabel>Testimonios</SectionLabel>
@@ -39,8 +44,8 @@ export default function Testimonials() {
 
       {/* Filas en marquesina con difuminado en los bordes */}
       <div className="flex flex-col gap-5 [mask-image:linear-gradient(to_right,transparent,black_7%,black_93%,transparent)]">
-        <MarqueeRow items={[...rowA, ...rowA]} duration={56} />
-        <MarqueeRow items={[...rowB, ...rowB]} duration={68} reverse />
+        <MarqueeRow items={[...rowA, ...rowA]} duration={56} running={inView} />
+        <MarqueeRow items={[...rowB, ...rowB]} duration={68} reverse running={inView} />
       </div>
     </section>
   )
@@ -50,15 +55,21 @@ function MarqueeRow({
   items,
   duration,
   reverse = false,
+  running = true,
 }: {
   items: Card[]
   duration: number
   reverse?: boolean
+  running?: boolean
 }) {
   return (
     <div
       className="flex w-max animate-marquee hover:[animation-play-state:paused]"
-      style={{ animationDuration: `${duration}s`, animationDirection: reverse ? 'reverse' : 'normal' }}
+      style={{
+        animationDuration: `${duration}s`,
+        animationDirection: reverse ? 'reverse' : 'normal',
+        animationPlayState: running ? undefined : 'paused',
+      }}
     >
       {items.map((t, i) => (
         <ReviewCard key={i} card={t} />

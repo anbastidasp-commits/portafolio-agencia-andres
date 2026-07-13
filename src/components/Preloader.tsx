@@ -22,7 +22,7 @@ export default function Preloader() {
       return
     }
     const start = performance.now()
-    const duration = 1600
+    const duration = 1050
     let frame = 0
     const tick = (now: number) => {
       const p = Math.min(1, (now - start) / duration)
@@ -32,7 +32,7 @@ export default function Preloader() {
       if (p < 1) {
         frame = requestAnimationFrame(tick)
       } else {
-        setTimeout(() => setDone(true), 350)
+        setTimeout(() => setDone(true), 250)
       }
     }
     frame = requestAnimationFrame(tick)

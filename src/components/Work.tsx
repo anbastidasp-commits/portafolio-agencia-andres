@@ -5,6 +5,7 @@ import { projects, type Project } from '../data/content'
 import Reveal from './Reveal'
 import SectionLabel from './SectionLabel'
 import TextAppear from './TextAppear'
+import { LOW_POWER } from '../lib/device'
 import MagneticButton from './MagneticButton'
 import ProjectCard3D from './ProjectCard3D'
 import PreviewModal from './PreviewModal'
@@ -104,17 +105,19 @@ function WorkCard({
         viewport={{ once: true, margin: '-80px' }}
       >
         <motion.article
-          style={{ scale, opacity }}
-          className="glass-card relative mb-16 overflow-hidden rounded-[2rem] border border-cream/12 bg-steel-900/45 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.85)] ring-1 ring-inset ring-cream/10 backdrop-blur-lg sm:mb-24"
+          style={LOW_POWER ? undefined : { scale, opacity }}
+          className="glass-card relative mb-16 overflow-hidden rounded-[2rem] border border-cream/12 bg-steel-900/90 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.85)] ring-1 ring-inset ring-cream/10 sm:mb-24"
         >
-          {/* Brillo de cristal (glassmorphism pro) */}
+          {/* Brillo de cristal (glassmorphism pro). Sin backdrop-blur ni
+              filter:blur — animar scale sobre una card con blur obligaba a
+              re-difuminar todo en cada frame; el glow es un radial pre-pintado. */}
           <span
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-cream/40 to-transparent"
           />
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -left-24 -top-24 z-0 h-64 w-64 rounded-full bg-wine/20 blur-3xl"
+            className="pointer-events-none absolute -left-24 -top-24 z-0 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(192,57,43,0.18),transparent_65%)]"
           />
           <div className="relative grid grid-cols-1 gap-6 p-7 sm:p-10 lg:grid-cols-12">
             {/* Tags */}

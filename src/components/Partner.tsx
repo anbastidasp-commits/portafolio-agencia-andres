@@ -4,6 +4,7 @@ import { partner } from '../data/content'
 import Reveal from './Reveal'
 import SectionLabel from './SectionLabel'
 import TextAppear from './TextAppear'
+import { LOW_POWER } from '../lib/device'
 import roleEstrategia from '../assets/work/role-estrategia.jpg'
 import roleDiseno from '../assets/work/role-diseno.jpg'
 import roleDesarrollo from '../assets/work/role-desarrollo.jpg'
@@ -88,8 +89,9 @@ function RoleCard({
   index: number
   progress: MotionValue<number>
 }) {
-  const amp = parallax[index % parallax.length]
   // Parallax: la imagen (más alta que la card) se desplaza con el scroll.
+  // En táctil amp=0 → sin escrituras de estilo por frame.
+  const amp = LOW_POWER ? 0 : parallax[index % parallax.length]
   const y = useTransform(progress, [0, 1], [amp, -amp])
 
   return (

@@ -1,14 +1,16 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
+import { LOW_POWER } from '../lib/device'
 
 /**
  * Scroll suave estilo Awwwards con Lenis.
- * Respeta prefers-reduced-motion: si el usuario lo pide, no se activa.
+ * Respeta prefers-reduced-motion, y en táctil no se activa: el scroll
+ * nativo del móvil ya es suave y Lenis solo añadiría un rAF permanente.
  */
 export function useSmoothScroll() {
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
+    if (prefersReduced || LOW_POWER) return
 
     const lenis = new Lenis({
       duration: 1.1,

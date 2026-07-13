@@ -8,6 +8,7 @@ import {
 } from 'framer-motion'
 import { ChevronDown, Instagram, Linkedin, Github, Dribbble, ArrowUpRight } from 'lucide-react'
 import { hero, brand } from '../data/content'
+import { LOW_POWER } from '../lib/device'
 import HeroBackground from './HeroBackground'
 import CyclingWord from './CyclingWord'
 
@@ -38,7 +39,9 @@ function MaskLine({ children, delay = 0 }: { children: ReactNode; delay?: number
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null)
-  const prefersReduced = useReducedMotion()
+  // En táctil se anulan los parallax por scroll (escrituras de estilo por
+  // frame en el hilo principal), igual que con prefers-reduced-motion.
+  const prefersReduced = useReducedMotion() || LOW_POWER
 
   // Vincula el scroll del hero (entra al salir de pantalla).
   const { scrollYProgress } = useScroll({

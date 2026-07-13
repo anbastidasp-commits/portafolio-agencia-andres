@@ -138,40 +138,19 @@
 /* HERO — fondo de vídeo + atmósfera de color adaptada a la paleta    */
 /* ------------------------------------------------------------------ */
 
-/* Atmósfera tipo "aurora": deriva lenta de glows vino/slate/crema.
-   mix-blend soft-light GRADÚA el vídeo hacia la paleta sin oscurecerlo
-   (cumple "no overlay" — no es un scrim plano, es color que tiñe). */
+/* Atmósfera tipo "aurora": deriva lenta de glows vino/crema.
+   Sin mix-blend-mode (recomposición cara de toda la capa): los rgba
+   translúcidos consiguen el tinte con composición normal, mucho más barata. */
 .hero-aurora {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(58% 50% at 16% 28%, rgba(192, 57, 43, 0.45), transparent 70%),
-    radial-gradient(52% 46% at 84% 22%, rgba(143, 42, 32, 0.38), transparent 72%),
-    radial-gradient(60% 55% at 72% 88%, rgba(245, 242, 235, 0.16), transparent 70%);
-  mix-blend-mode: soft-light;
+    radial-gradient(58% 50% at 16% 28%, rgba(192, 57, 43, 0.28), transparent 70%),
+    radial-gradient(52% 46% at 84% 22%, rgba(143, 42, 32, 0.24), transparent 72%),
+    radial-gradient(60% 55% at 72% 88%, rgba(245, 242, 235, 0.08), transparent 70%);
   will-change: transform, opacity;
   animation: aurora-drift 22s ease-in-out infinite alternate;
-}
-
-/* Tinte centrado: recolorea el ORBE del vídeo hacia la paleta
-   (vino → crema → slate) con mix-blend "color": conserva la luz del
-   orbe pero adopta el tono cálido del portafolio. */
-.hero-tint {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(38% 40% at 50% 45%, rgba(192, 57, 43, 0.55), rgba(245, 242, 235, 0.28) 46%, transparent 72%),
-    radial-gradient(62% 62% at 50% 50%, rgba(143, 42, 32, 0.22), transparent 70%);
-  mix-blend-mode: color;
-  will-change: transform, opacity;
-  animation: aurora-drift 28s ease-in-out infinite alternate-reverse;
-}
-
-/* Suaviza/calienta el vídeo: ligero realce de saturación y contraste. */
-.hero-video {
-  filter: saturate(1.1) contrast(1.03) brightness(1.01);
 }
 
 /* Graduado mínimo SÓLO en el borde inferior para legibilidad de la
@@ -190,7 +169,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-aurora,
-  .hero-tint,
   .text-sheen {
     animation: none !important;
   }
@@ -211,15 +189,30 @@
   }
 }
 
-/* Overlay de grano (textura fílmica, estilo Awwwards) */
+/* Overlay de grano (textura fílmica, estilo Awwwards).
+   Sin mix-blend-mode: una capa fixed con blend obliga a recomponer TODA la
+   pantalla en cada frame de scroll; con opacidad simple el compositor la
+   resuelve gratis. */
 .grain {
   position: fixed;
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.045;
-  mix-blend-mode: overlay;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Táctil: backdrop-filter es de lo más caro que existe en GPU móvil
+   (re-blur del contenido de detrás en cada frame de scroll). Se apaga
+   globalmente y .glass pasa a fondo casi opaco equivalente. */
+@media (pointer: coarse) {
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .glass {
+    background: rgba(22, 17, 16, 0.92);
+  }
 }
 
 /* Cursor personalizado: ocultamos el nativo en dispositivos con puntero fino */

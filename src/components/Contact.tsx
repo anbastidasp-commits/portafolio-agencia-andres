@@ -4,6 +4,7 @@ import { Mail, Twitter, Linkedin, Instagram } from 'lucide-react'
 import { contact, brand } from '../data/content'
 import { SplineScene } from './ui/splite'
 import TextAppear from './TextAppear'
+import { LOW_POWER } from '../lib/device'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -37,8 +38,11 @@ export default function Contact() {
 
   // El runtime de Spline (~2 MB) sólo se descarga y monta cuando la sección
   // está a menos de una pantalla de distancia — no penaliza la carga inicial.
+  // En móvil no se monta nunca: WebGL + física es demasiado para GPU táctil
+  // (y se ahorran ~4 MB de chunks).
   const sectionRef = useRef<HTMLElement>(null)
   const nearViewport = useInView(sectionRef, { once: true, margin: '100% 0px' })
+  const showRobot = nearViewport && !LOW_POWER
 
   return (
     <section
@@ -65,7 +69,7 @@ export default function Contact() {
             pointer-events-none salvo el botón de WhatsApp, así el mouse llega
             al robot pero los clicks siguen funcionando. ── */}
       <div aria-hidden="true" className="absolute inset-0 z-[1] flex items-center justify-center">
-        {nearViewport && (
+        {showRobot && (
           <SplineScene
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
             className="h-full w-full"

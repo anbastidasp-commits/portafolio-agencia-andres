@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
+import { LOW_POWER } from '../lib/device'
 
 /**
  * "Cortina" de scroll — el borde inferior de cada bloque se curva/distorsiona
@@ -10,17 +11,28 @@ import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motio
  * Nota: usa overflow-hidden, así que NO debe envolver secciones con
  * position:sticky interno (rompería el sticky) — p. ej. Work.
  */
-export default function ScrollCurtain({
-  children,
-  className = '',
-  background = '#06141B',
-}: {
+type Props = {
   children: ReactNode
   className?: string
   /** Fondo opaco del bloque (la curva inferior lo revela). Acepta cualquier
    *  valor CSS — usado para teñir secciones en tonos vino/crema. */
   background?: string
-}) {
+}
+
+export default function ScrollCurtain(props: Props) {
+  // Móvil: sin efecto cortina — cada instancia añadía un listener de scroll
+  // que escribía clip-path + scale en secciones enteras por frame.
+  if (LOW_POWER) {
+    return (
+      <div style={{ background: props.background }} className={`relative ${props.className ?? ''}`}>
+        {props.children}
+      </div>
+    )
+  }
+  return <AnimatedCurtain {...props} />
+}
+
+function AnimatedCurtain({ children, className = '', background = '#06141B' }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
